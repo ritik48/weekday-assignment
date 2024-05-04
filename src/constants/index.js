@@ -1,5 +1,6 @@
 const Roles = [
     "Backend",
+    "Frontend",
     "Fullstack",
     "IOS",
     "Flutter",
@@ -42,15 +43,6 @@ const Roles = [
     "Finance",
 ];
 
-const NumberOfEmployees = [
-    "1-10",
-    "21-50",
-    "51-100",
-    "101-200",
-    "201-500",
-    "500+",
-];
-
 const Location = ["Remote", "Hybrid", "In-office"];
 
 const Tech = [
@@ -71,5 +63,23 @@ const Tech = [
 ];
 
 const MinPay = ["0L", "10L", "20L", "30L", "40L", "50L", "60L", "70L"];
+const Experience = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export { Roles, MinPay, NumberOfEmployees, Tech, Location };
+const getFilterCategory = {
+    Roles: "roles",
+    Location: "location",
+    Tech: "tech",
+    "Minimum Pay": "minimumPay",
+    Company: "companyName",
+    Experience: "experience",
+    "No. of Employees": "numberOfEmployees",
+};
+
+export {
+    Roles,
+    MinPay,
+    Tech,
+    Location,
+    getFilterCategory,
+    Experience,
+};

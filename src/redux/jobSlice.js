@@ -1,20 +1,22 @@
 /* eslint-disable no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { getJobs } from "../apis";
 
 const initialState = {
     jobs: [],
+    filteredJobs: [],
     loading: true,
     error: false,
     page: 1,
     limit: 10,
     filters: {
         roles: [],
-        numberOfEmployees: [],
         experience: null,
+        tech: [],
         location: [],
-        baseSalary: null,
+        minimumPay: [],
         companyName: null,
+        remote: null,
     },
 };
 
@@ -37,8 +39,33 @@ const jobSlice = createSlice({
         nextPage(state, action) {
             state.page = state.page + 1;
         },
+        addFilter(state, action) {
+            const { category, value } = action.payload;
+
+            if (Array.isArray(state.filters[category])) {
+                state.filters[category] = [
+                    ...state.filters[category],
+                    ...value,
+                ];
+            } else {
+                state.filters[category] = value;
+            }
+        },
+        removeFilter(state, action) {
+            const { category, value } = action.payload;
+
+            if (Array.isArray(state.filters[category])) {
+                state.filters[category] = state.filters[category].filter(
+                    (f) => f !== value
+                );
+            } else {
+                state.filters[category] = null;
+            }
+        },
     },
 });
+
+// async action to fetch all the jobs from the api
 
 function fetchJobs(page) {
     return async function (dispatch, getState) {
@@ -51,7 +78,57 @@ function fetchJobs(page) {
     };
 }
 
-export const { fetchStart, fetchSuccess, fetchError, nextPage } =
-    jobSlice.actions;
+export const jobSelector = (state) => state.job.jobs;
+const filterSelector = (state) => state.job.filters;
+
+export const getFilteredJobs = createSelector(
+    [jobSelector, filterSelector],
+    (jobs, filters) => {
+        return jobs.filter((job) => {
+            const roleFilter =
+                !filters.roles.length ||
+                filters.roles.some((f) => f.toLowerCase() === job.jobRole);
+
+            const locationFilter =
+                !filters.location.length ||
+                filters.location.some((f) => f.toLowerCase() === job.location);
+
+            const remoteFilter =
+                !filters.remote ||
+                filters.remote.toLowerCase() === job.location;
+
+            const experienceFilter =
+                !filters.experience ||
+                (job.minExp && filters.experience >= job.minExp);
+
+
+            const numberedSalary = filters.minimumPay.map((p) =>
+                parseInt(p.slice(0, -1))
+            );
+            const payFilter =
+                !numberedSalary.length ||
+                (job.minJdSalary &&
+                    numberedSalary.some((f) => f <= job.minJdSalary));
+
+
+            return (
+                roleFilter &&
+                locationFilter &&
+                remoteFilter &&
+                experienceFilter &&
+                payFilter
+            );
+        });
+    }
+);
+
+export const {
+    fetchStart,
+    fetchSuccess,
+    fetchError,
+    nextPage,
+    addFilter,
+    removeFilter,
+} = jobSlice.actions;
 export const jobReducer = jobSlice.reducer;
 export { fetchJobs };

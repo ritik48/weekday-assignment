@@ -10,8 +10,15 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getFilterCategory } from "../constants";
+import { addFilter, removeFilter } from "../redux/jobSlice";
 
 export function MultiSelectInput({ values, label }) {
+    const category = getFilterCategory[label];
+
+    const dispatch = useDispatch();
+
     const [selectValues, setSelectValues] = useState([]);
     const [open, setOpen] = useState(false);
 
@@ -20,11 +27,14 @@ export function MultiSelectInput({ values, label }) {
             target: { value },
         } = event;
 
+        dispatch(addFilter({ category, value }));
+
         setSelectValues(value);
         setOpen(false);
     };
 
     const handleDelete = (value) => {
+        dispatch(removeFilter({ category, value }));
         setSelectValues((prevSelection) => {
             return prevSelection.filter((v) => v !== value);
         });

@@ -2,14 +2,19 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Job } from "./Job.jsx";
-import { fetchJobs, nextPage } from "../redux/jobSlice.js";
+import {
+    fetchJobs,
+    getFilteredJobs,
+    nextPage,
+} from "../redux/jobSlice.js";
 import { useEffect } from "react";
 
 export function JobList() {
     const page = useSelector((state) => state.job.page);
     const dispatch = useDispatch();
 
-    const { loading, jobs } = useSelector((state) => state.job);
+    const { loading } = useSelector((state) => state.job);
+    const filteredJob = useSelector(getFilteredJobs);
 
     function handleLoadMore() {
         dispatch(nextPage());
@@ -22,8 +27,8 @@ export function JobList() {
     return (
         <>
             <Grid container spacing={2}>
-                {jobs.length > 0 &&
-                    jobs.map((job) => (
+                {filteredJob.length > 0 &&
+                    filteredJob.map((job) => (
                         <Job
                             details={job.jobDetailsFromCompany}
                             maxSalary={job.maxJdSalary}
