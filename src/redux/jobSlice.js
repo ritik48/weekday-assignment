@@ -27,8 +27,7 @@ const jobSlice = createSlice({
         },
         fetchSuccess(state, action) {
             state.loading = false;
-            console.log(state);
-            console.log(action.payload);
+
             state.jobs = [...state.jobs, ...action.payload];
         },
         fetchError(state, action) {

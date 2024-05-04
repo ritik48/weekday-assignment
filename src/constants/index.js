@@ -1,0 +1,75 @@
+const Roles = [
+    "Backend",
+    "Fullstack",
+    "IOS",
+    "Flutter",
+    "React Native",
+    "Android",
+    "Tech Lead",
+    "Dev-Ops",
+    "Data Engineer",
+    "Data Science",
+    "Computer-Vision",
+    "Nlp",
+    "Test/Qa",
+    "Web3",
+    "Deep-Learning",
+    "Sre",
+    "Data-Infrastructure",
+    "Designer",
+    "Design MAnager",
+    "Graphic Designer",
+    "Product Designer",
+    "Product Manager",
+    "Operations Manager",
+    "Founder's Office/Chief Of Staff",
+    "Sales Development Representative",
+    "Account Executive",
+    "Account Manager",
+    "Digital Marketing Manager",
+    "Growth Hacker",
+    "Marketing",
+    "Product Marketing Manager",
+    "HardWare",
+    "Mechanical",
+    "Systems",
+    "Business Analyst",
+    "Data Analyst",
+    "Project Manager",
+    "Management",
+    "Legal",
+    "Hr",
+    "Finance",
+];
+
+const NumberOfEmployees = [
+    "1-10",
+    "21-50",
+    "51-100",
+    "101-200",
+    "201-500",
+    "500+",
+];
+
+const Location = ["Remote", "Hybrid", "In-office"];
+
+const Tech = [
+    "Python",
+    "GoLang",
+    "Ruby/Rails",
+    "Kotlin",
+    "Django",
+    "C#",
+    "GraphQL",
+    "Flask",
+    "Typescript",
+    "AWS",
+    "Javascript",
+    "Rust",
+    "NodeJS",
+    "React",
+];
+
+const MinPay = ["0L", "10L", "20L", "30L", "40L", "50L", "60L", "70L"];
+
+export { Roles, MinPay, NumberOfEmployees, Tech, Location };

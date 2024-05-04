@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Button, Container, Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { JobList } from "./components/JobList";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchJobs } from "./redux/jobSlice";
+import { FilterNav } from "./components/FilterNav";
 
 function App() {
     return (
         <Container>
-            <Stack spacing={"40px"}>
+            <Stack spacing={"40px"} marginTop={"40px"}>
+                <FilterNav />
                 <JobList />
             </Stack>
         </Container>
