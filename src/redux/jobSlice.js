@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
+import { getJobs } from "../apis";
 
 const initialState = {
     jobs: [],
     loading: true,
     error: false,
+    page: 1,
+    limit: 10,
     filters: {
         roles: [],
         numberOfEmployees: [],
@@ -22,16 +25,34 @@ const jobSlice = createSlice({
         fetchStart(state, action) {
             state.loading = true;
         },
-        fecthSuccess(state, action) {
+        fetchSuccess(state, action) {
             state.loading = false;
-            state.jobs = action.payload;
+            console.log(state);
+            console.log(action.payload);
+            state.jobs = [...state.jobs, ...action.payload];
         },
         fetchError(state, action) {
             state.error = true;
             state.loading = false;
         },
+        nextPage(state, action) {
+            state.page = state.page + 1;
+        },
     },
 });
 
-export const { fetchStart, fecthSuccess, fetchError } = jobSlice.actions;
+function fetchJobs(page) {
+    return async function (dispatch, getState) {
+        dispatch(fetchStart());
+
+        const limit = getState().job.limit;
+        const jobs = await getJobs(page, limit);
+
+        dispatch(fetchSuccess(jobs.jdList));
+    };
+}
+
+export const { fetchStart, fetchSuccess, fetchError, nextPage } =
+    jobSlice.actions;
 export const jobReducer = jobSlice.reducer;
+export { fetchJobs };

@@ -1,11 +1,15 @@
-export async function fetchJobs(offset) {
+export async function getJobs(page, limit) {
     try {
+        const offset = limit * (page - 1);
+
         const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
         const body = JSON.stringify({
-            limit: 10,
+            limit,
             offset,
         });
-        myHeaders.append("Content-Type", "application/json");
+
         const requestOptions = {
             method: "POST",
             headers: myHeaders,

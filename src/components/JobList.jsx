@@ -1,304 +1,55 @@
-import { Button, Card, Grid, Stack, Typography } from "@mui/material";
-import AdbIcon from "@mui/icons-material/Adb";
-import { useSelector } from "react-redux";
+/* eslint-disable react/prop-types */
+import { Button, Grid, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { Job } from "./Job.jsx";
+import { fetchJobs, nextPage } from "../redux/jobSlice.js";
+import { useEffect } from "react";
 
-export function Category() {
-    const loading = useSelector((state) => state.job.loading);
+export function JobList() {
+    const page = useSelector((state) => state.job.page);
+    const dispatch = useDispatch();
 
-    return loading ? (
-        <Typography variant="h4" textAlign={"center"}>
-            Loading...
-        </Typography>
-    ) : (
-        <Grid container spacing={2}>
-            <Grid item md={4}>
-                <Card>
-                    <Stack padding={"20px"} spacing={"14px"}>
-                        <Stack direction={"row"} spacing={"10px"}>
-                            <AdbIcon />
-                            <Stack spacing={"5px"}>
-                                <Typography
-                                    variant="p"
-                                    fontWeight={"bold"}
-                                    fontFamily={"sans-serif"}
-                                    color={"grey"}
-                                >
-                                    Firefle
-                                </Typography>
-                                <Typography
-                                    variant="p"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    Frontend Engineer
-                                </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    India
-                                </Typography>
-                            </Stack>
-                        </Stack>
-                        <Typography fontSize={"14px"}>
-                            Estimated Salary: ₹30 - 50 LPA ✅
-                        </Typography>
-                        <Stack>
-                            <Typography
-                                variant="p"
-                                fontWeight={"bold"}
-                                fontSize={"16px"}
-                                fontFamily={"sans-serif"}
-                            >
-                                Job detail
-                            </Typography>
-                            <Typography>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Soluta, error minus! Unde, et
-                                officia voluptatem in eum laborum nihil quod
-                                saepe doloremque facere asperiores maxime
-                                maiores vitae aut porro aliquid? Quibusdam
-                                cumque obcaecati dolorem eveniet et, rem at
-                                magni id consequatur, voluptatibus
-                            </Typography>
-                        </Stack>
-                        <Stack spacing={"4px"}>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                Min Experience 4 years
-                            </Typography>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                4 years
-                            </Typography>
-                        </Stack>
-                        <Button variant="contained" size="medium">
-                            Easy Apply
-                        </Button>
-                    </Stack>
-                </Card>
+    const { loading, jobs } = useSelector((state) => state.job);
+
+    function handleLoadMore() {
+        dispatch(nextPage());
+    }
+
+    useEffect(() => {
+        dispatch(fetchJobs(page));
+    }, [dispatch, page]);
+
+    return (
+        <>
+            <Grid container spacing={2}>
+                {jobs.length > 0 &&
+                    jobs.map((job) => (
+                        <Job
+                            details={job.jobDetailsFromCompany}
+                            maxSalary={job.maxJdSalary}
+                            minSalary={job.minJdSalary}
+                            role={job.jobRole}
+                            company={job.companyName}
+                            logo={job.logoUrl}
+                            minExperience={job.minExp}
+                            maxExperience={job.maxExp}
+                            location={job.location}
+                            jdLink={job.jdLink}
+                            currency={job.salaryCurrencyCode}
+                            key={job.jdUid}
+                        />
+                    ))}
             </Grid>
-            <Grid item md={4}>
-                <Card>
-                    <Stack padding={"20px"} spacing={"14px"}>
-                        <Stack direction={"row"} spacing={"10px"}>
-                            <AdbIcon />
-                            <Stack spacing={"5px"}>
-                                <Typography
-                                    variant="p"
-                                    fontWeight={"bold"}
-                                    fontFamily={"sans-serif"}
-                                    color={"grey"}
-                                >
-                                    Firefle
-                                </Typography>
-                                <Typography
-                                    variant="p"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    Frontend Engineer
-                                </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    India
-                                </Typography>
-                            </Stack>
-                        </Stack>
-                        <Typography fontSize={"14px"}>
-                            Estimated Salary: ₹30 - 50 LPA ✅
-                        </Typography>
-                        <Stack>
-                            <Typography
-                                variant="p"
-                                fontWeight={"bold"}
-                                fontSize={"16px"}
-                                fontFamily={"sans-serif"}
-                            >
-                                About us
-                            </Typography>
-                            <Typography>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Soluta, error minus! Unde, et
-                                officia voluptatem in eum laborum nihil quod
-                                saepe doloremque facere asperiores maxime
-                                maiores vitae aut porro aliquid? Quibusdam
-                                cumque obcaecati dolorem eveniet et, rem at
-                                magni id consequatur, voluptatibus
-                            </Typography>
-                        </Stack>
-                        <Stack spacing={"4px"}>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                Min Experience 4 years
-                            </Typography>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                4 years
-                            </Typography>
-                        </Stack>
-                        <Button variant="contained" size="medium">
-                            Easy Apply
-                        </Button>
-                    </Stack>
-                </Card>
-            </Grid>
-            <Grid item md={4}>
-                <Card>
-                    <Stack padding={"20px"} spacing={"14px"}>
-                        <Stack direction={"row"} spacing={"10px"}>
-                            <AdbIcon />
-                            <Stack spacing={"5px"}>
-                                <Typography
-                                    variant="p"
-                                    fontWeight={"bold"}
-                                    fontFamily={"sans-serif"}
-                                    color={"grey"}
-                                >
-                                    Firefle
-                                </Typography>
-                                <Typography
-                                    variant="p"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    Frontend Engineer
-                                </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    India
-                                </Typography>
-                            </Stack>
-                        </Stack>
-                        <Typography fontSize={"14px"}>
-                            Estimated Salary: ₹30 - 50 LPA ✅
-                        </Typography>
-                        <Stack>
-                            <Typography
-                                variant="p"
-                                fontWeight={"bold"}
-                                fontSize={"16px"}
-                                fontFamily={"sans-serif"}
-                            >
-                                About us
-                            </Typography>
-                            <Typography>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Soluta, error minus! Unde, et
-                                officia voluptatem in eum laborum nihil quod
-                                saepe doloremque facere asperiores maxime
-                                maiores vitae aut porro aliquid? Quibusdam
-                                cumque obcaecati dolorem eveniet et, rem at
-                                magni id consequatur, voluptatibus
-                            </Typography>
-                        </Stack>
-                        <Stack spacing={"4px"}>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                Min Experience 4 years
-                            </Typography>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                4 years
-                            </Typography>
-                        </Stack>
-                        <Button variant="contained" size="medium">
-                            Easy Apply
-                        </Button>
-                    </Stack>
-                </Card>
-            </Grid>
-            <Grid item md={4}>
-                <Card>
-                    <Stack padding={"20px"} spacing={"14px"}>
-                        <Stack direction={"row"} spacing={"10px"}>
-                            <AdbIcon />
-                            <Stack spacing={"5px"}>
-                                <Typography
-                                    variant="p"
-                                    fontWeight={"bold"}
-                                    fontFamily={"sans-serif"}
-                                    color={"grey"}
-                                >
-                                    Firefle
-                                </Typography>
-                                <Typography
-                                    variant="p"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    Frontend Engineer
-                                </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontFamily={"sans-serif"}
-                                >
-                                    India
-                                </Typography>
-                            </Stack>
-                        </Stack>
-                        <Typography fontSize={"14px"}>
-                            Estimated Salary: ₹30 - 50 LPA ✅
-                        </Typography>
-                        <Stack>
-                            <Typography
-                                variant="p"
-                                fontWeight={"bold"}
-                                fontSize={"16px"}
-                                fontFamily={"sans-serif"}
-                            >
-                                About us
-                            </Typography>
-                            <Typography>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Soluta, error minus! Unde, et
-                                officia voluptatem in eum laborum nihil quod
-                                saepe doloremque facere asperiores maxime
-                                maiores vitae aut porro aliquid? Quibusdam
-                                cumque obcaecati dolorem eveniet et, rem at
-                                magni id consequatur, voluptatibus
-                            </Typography>
-                        </Stack>
-                        <Stack spacing={"4px"}>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                Min Experience 4 years
-                            </Typography>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                4 years
-                            </Typography>
-                        </Stack>
-                        <Button variant="contained" size="medium">
-                            Easy Apply
-                        </Button>
-                    </Stack>
-                </Card>
-            </Grid>
-        </Grid>
+            {loading && (
+                <Typography variant="h4" textAlign={"center"}>
+                    Loading...
+                </Typography>
+            )}
+            {!loading && (
+                <Button onClick={handleLoadMore} variant="contained">
+                    Load more
+                </Button>
+            )}
+        </>
     );
 }
