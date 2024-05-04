@@ -1,11 +1,12 @@
-import { useState } from "react";
-function App() {
-    const [count, setCount] = useState(0);
+/* eslint-disable no-unused-vars */
+import { Container } from "@mui/material";
+import { Category } from "./components/JobList";
 
+function App() {
     return (
-        <>
-            <h1>Hello</h1>
-        </>
+        <Container>
+            <Category />
+        </Container>
     );
 }
 
