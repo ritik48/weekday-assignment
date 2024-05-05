@@ -15,6 +15,8 @@ import { useTheme } from "@emotion/react";
 export function SingleInputSelect({ label, values }) {
     const category = getFilterCategory[label];
 
+    const [open, setOpen] = useState(false);
+
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ export function SingleInputSelect({ label, values }) {
                 sx={{
                     width: "100%",
                 }}
+                focused={open}
             >
                 <InputLabel id="demo-simple-select-label">{label}</InputLabel>
                 <Select
@@ -47,6 +50,8 @@ export function SingleInputSelect({ label, values }) {
                     id="demo-simple-select"
                     value={value}
                     label={label}
+                    onOpen={() => setOpen(!open)}
+                    onClose={() => setOpen(!open)}
                     onChange={handleChange}
                     sx={{ fontSize: "13px !important", paddingBottom: "6px" }}
                 >

@@ -56,6 +56,7 @@ export function MultiSelectInput({ values, label }) {
                 sx={{
                     width: "100%",
                 }}
+                focused={open}
             >
                 <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
                 <Select
@@ -67,12 +68,10 @@ export function MultiSelectInput({ values, label }) {
                     onOpen={() => setOpen(!open)}
                     onClose={() => setOpen(!open)}
                     onChange={handleChange}
-                    sx={
-                        {
-                            fontSize: "13px !important",
-                            paddingBottom: "6px",
-                        }
-                    }
+                    sx={{
+                        fontSize: "13px !important",
+                        paddingBottom: "6px",
+                    }}
                     input={
                         <OutlinedInput
                             id="select-multiple-chip"
