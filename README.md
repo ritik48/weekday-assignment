@@ -16,3 +16,5 @@ Live: https://weekday-assignment-sandy.vercel.app/
    `npm run dev`
 
 5. Go to http://localhost:5173 to access the application
+
+##### I have implemented all the features mentioned in the docs except filtering on the basis of Tech Stack. This is because the jobs fetched using api didn't have any Tech Stack information.
