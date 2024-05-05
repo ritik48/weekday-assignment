@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+import { useTheme } from "@emotion/react";
 import {
     Avatar,
     Box,
@@ -10,6 +11,7 @@ import {
     Modal,
     Stack,
     Typography,
+    useMediaQuery,
 } from "@mui/material";
 import { forwardRef, useState } from "react";
 
@@ -32,9 +34,19 @@ export const Job = forwardRef(
     ) => {
         const limit = 240;
         const [showMore, setShowMore] = useState(false);
+
+        const theme = useTheme();
+        const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+        console.log(isSmallScreen, " small");
         return (
             <Grid item md={4} ref={ref}>
-                <Card>
+                <Card
+                    sx={{
+                        boxShadow: 3,
+                        borderRadius: 4,
+                        marginTop: isSmallScreen ? "10px" : "",
+                    }}
+                >
                     <Stack padding={"20px"} spacing={"14px"}>
                         <Stack direction={"row"} spacing={"10px"}>
                             <Avatar alt="Remy Sharp" src={`${logo}`} />
@@ -82,20 +94,23 @@ export const Job = forwardRef(
                             >
                                 Job detail
                             </Typography>
-                            <Typography>
-                                {showMore
-                                    ? details.toString()
-                                    : details.toString().slice(0, limit)+"..."}
+                            <Stack>
+                                <Typography>
+                                    {showMore
+                                        ? details.toString()
+                                        : details.toString().slice(0, limit) +
+                                          "..."}
+                                </Typography>
                                 {details.toString().length !== limit && (
                                     <Button
                                         onClick={() => setShowMore(!showMore)}
-                                        variant="outlined"
+                                        variant="text"
                                         size="small"
                                     >
                                         {!showMore ? "Show more" : "Hide"}
                                     </Button>
                                 )}
-                            </Typography>
+                            </Stack>
                         </Stack>
                         {minExperience && (
                             <Stack spacing={"4px"}>
@@ -117,8 +132,18 @@ export const Job = forwardRef(
                                 </Typography>
                             </Stack>
                         )}
-                        <Button variant="contained" size="medium">
-                            Easy Apply
+                        <Button
+                            variant="contained"
+                            size="medium"
+                            sx={{
+                                backgroundColor: "#0af2e7",
+                                color: "black",
+                                paddingBlock: "10px",
+                            }}
+                            href={jdLink}
+                            target="_blank"
+                        >
+                            ⚡ Easy Apply
                         </Button>
                     </Stack>
                 </Card>

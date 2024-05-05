@@ -25,6 +25,7 @@ export function FilterNav() {
                     display: "flex",
                     justifyContent: "center",
                     flexWrap: "wrap",
+                    gap: isSmallScreen ? "6px" : "",
                 }}
                 direction={isSmallScreen ? "column" : "row"}
                 spacing={"10px"}

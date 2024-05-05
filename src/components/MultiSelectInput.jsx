@@ -49,12 +49,14 @@ export function MultiSelectInput({ values, label }) {
             style={{
                 marginBlock: "2px",
                 // width: "15%",
-                minWidth: `${isSmallScreen ? "200px" : "130px"}`,
+                minWidth: `${isSmallScreen ? "200px" : "170px"}`,
+                height: "50px",
             }}
         >
             <FormControl
                 sx={{
                     width: "100%",
+                    height: "100% !important",
                 }}
                 focused={open}
             >
@@ -70,7 +72,8 @@ export function MultiSelectInput({ values, label }) {
                     onChange={handleChange}
                     sx={{
                         fontSize: "13px !important",
-                        paddingBottom: "6px",
+                        paddingBlock: "6px",
+                        height: "100% !important",
                     }}
                     input={
                         <OutlinedInput
