@@ -9,6 +9,7 @@ const initialState = {
     error: false,
     page: 1,
     limit: 10,
+    hasMoreJobs: false,
     filters: {
         roles: [],
         experience: null,
@@ -39,17 +40,24 @@ const jobSlice = createSlice({
         nextPage(state, action) {
             state.page = state.page + 1;
         },
+        setHasMore(state, action) {
+            state.hasMoreJobs = action.payload;
+        },
         addFilter(state, action) {
             const { category, value } = action.payload;
 
+            // assign filters based on whether the filter type is array or not
             if (Array.isArray(state.filters[category])) {
                 state.filters[category] = [
                     ...state.filters[category],
                     ...value,
                 ];
             } else {
-                state.filters[category] = value.length > 0 ? value : null;
-                console.log(category + " = " + state.filters[category]);
+                if (typeof value === "string") {
+                    state.filters[category] = value.length > 0 ? value : null;
+                } else {
+                    state.filters[category] = value;
+                }
             }
         },
         removeFilter(state, action) {
@@ -74,6 +82,8 @@ function fetchJobs(page) {
 
         const limit = getState().job.limit;
         const jobs = await getJobs(page, limit);
+
+        dispatch(setHasMore(jobs.jdList.length > 0)); // change just a single state, hasMore = true
 
         dispatch(fetchSuccess(jobs.jdList));
     };
@@ -141,6 +151,7 @@ export const {
     fetchStart,
     fetchSuccess,
     fetchError,
+    setHasMore,
     nextPage,
     addFilter,
     removeFilter,

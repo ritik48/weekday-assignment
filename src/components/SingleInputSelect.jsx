@@ -7,7 +7,6 @@ import { getFilterCategory } from "../constants";
 
 export function SingleInputSelect({ label, values }) {
     const category = getFilterCategory[label];
-    console.log(values);
 
     const [value, setValue] = useState("");
     const dispatch = useDispatch();

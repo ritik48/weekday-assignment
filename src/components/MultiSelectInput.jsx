@@ -16,7 +16,6 @@ import { addFilter, removeFilter } from "../redux/jobSlice";
 
 export function MultiSelectInput({ values, label }) {
     const category = getFilterCategory[label];
-    // console.log("rerender = ", label);
 
     const dispatch = useDispatch();
 
@@ -34,6 +33,7 @@ export function MultiSelectInput({ values, label }) {
         setOpen(false);
     };
 
+    // remove the selected value
     const handleDelete = (value) => {
         dispatch(removeFilter({ category, value }));
         setSelectValues((prevSelection) => {

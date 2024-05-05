@@ -47,7 +47,7 @@ const Roles = [
 const Location = [
     "Mumbai",
     "Hyderabad",
-    "Delhi",
+    "Delhi Ncr",
     "Bangalore",
     "Chennai",
     "Kolkata",
