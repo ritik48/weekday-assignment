@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Job } from "./Job.jsx";
 import { fetchJobs, getFilteredJobs, nextPage } from "../redux/jobSlice.js";
 import { useCallback, useEffect, useRef } from "react";
 import Loader from "./Loader.jsx";
+import { useTheme } from "@emotion/react";
 
 export function JobList() {
     const page = useSelector((state) => state.job.page);
@@ -42,9 +43,12 @@ export function JobList() {
         dispatch(fetchJobs(page));
     }, [dispatch, page]);
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <>
-            <Grid container spacing={2}>
+            <Grid container spacing={isSmallScreen ? 0 : 2}>
                 {filteredJob.length > 0 &&
                     filteredJob.map((job, index) =>
                         index + 1 === filteredJob.length ? (

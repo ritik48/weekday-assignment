@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    useMediaQuery,
+} from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFilter, removeFilter } from "../redux/jobSlice";
 import { getFilterCategory } from "../constants";
+import { useTheme } from "@emotion/react";
 
 export function SingleInputSelect({ label, values }) {
     const category = getFilterCategory[label];
@@ -19,8 +26,16 @@ export function SingleInputSelect({ label, values }) {
         }
         setValue(event.target.value);
     };
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     return (
-        <div style={{ marginBlock: "2px", width: "15%", minWidth: "100px" }}>
+        <div
+            style={{
+                marginBlock: "2px",
+                // width: "15%",
+                minWidth: `${isSmallScreen ? "200px" : "130px"}`,
+            }}
+        >
             <FormControl
                 sx={{
                     width: "100%",
@@ -33,7 +48,7 @@ export function SingleInputSelect({ label, values }) {
                     value={value}
                     label={label}
                     onChange={handleChange}
-                    sx={{ fontSize: "8px !important", paddingBottom: "6px" }}
+                    sx={{ fontSize: "13px !important", paddingBottom: "6px" }}
                 >
                     <MenuItem value="">
                         <em>None</em>

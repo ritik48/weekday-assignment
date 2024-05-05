@@ -7,12 +7,14 @@ import {
     MenuItem,
     OutlinedInput,
     Select,
+    useMediaQuery,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getFilterCategory } from "../constants";
 import { addFilter, removeFilter } from "../redux/jobSlice";
+import { useTheme } from "@emotion/react";
 
 export function MultiSelectInput({ values, label }) {
     const category = getFilterCategory[label];
@@ -40,8 +42,16 @@ export function MultiSelectInput({ values, label }) {
             return prevSelection.filter((v) => v !== value);
         });
     };
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     return (
-        <div style={{ marginBlock: "2px", width: "15%", minWidth: "100px" }}>
+        <div
+            style={{
+                marginBlock: "2px",
+                // width: "15%",
+                minWidth: `${isSmallScreen ? "200px" : "130px"}`,
+            }}
+        >
             <FormControl
                 sx={{
                     width: "100%",
@@ -57,10 +67,12 @@ export function MultiSelectInput({ values, label }) {
                     onOpen={() => setOpen(!open)}
                     onClose={() => setOpen(!open)}
                     onChange={handleChange}
-                    sx={{
-                        fontSize: "8px !important",
-                        paddingBottom: "6px"
-                    }}
+                    sx={
+                        {
+                            fontSize: "13px !important",
+                            paddingBottom: "6px",
+                        }
+                    }
                     input={
                         <OutlinedInput
                             id="select-multiple-chip"

@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery } from "@mui/material";
 import { MultiSelectInput } from "./MultiSelectInput";
 import {
     MinPay,
@@ -9,8 +9,12 @@ import {
 } from "../constants/index.js";
 import { SingleInputSelect } from "./SingleInputSelect.jsx";
 import { TextInput } from "./TextInput.jsx";
+import { useTheme } from "@emotion/react";
 
 export function FilterNav() {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <Stack spacing={"20px"}>
             <Typography textAlign={"center"} variant="h5">
@@ -22,7 +26,7 @@ export function FilterNav() {
                     justifyContent: "center",
                     flexWrap: "wrap",
                 }}
-                direction={"row"}
+                direction={isSmallScreen ? "column" : "row"}
                 spacing={"10px"}
                 textAlign={"center"}
             >
