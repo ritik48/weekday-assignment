@@ -31,6 +31,11 @@ export function MultiSelectInput({ values, label }) {
 
         dispatch(addFilter({ category, value }));
 
+        const removedValue = selectValues.find((f) => !value.includes(f));
+        if (removedValue) {
+            dispatch(removeFilter({ category, value: removedValue }));
+        }
+
         setSelectValues(value);
         setOpen(false);
     };
@@ -48,20 +53,18 @@ export function MultiSelectInput({ values, label }) {
         <div
             style={{
                 marginBlock: "2px",
-                // width: "15%",
                 minWidth: `${isSmallScreen ? "200px" : "170px"}`,
-                height: "50px",
             }}
         >
             <FormControl
                 sx={{
                     width: "100%",
-                    height: "100% !important",
                 }}
                 focused={open}
             >
                 <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
                 <Select
+                    size="small"
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
@@ -71,19 +74,12 @@ export function MultiSelectInput({ values, label }) {
                     onClose={() => setOpen(!open)}
                     onChange={handleChange}
                     sx={{
-                        fontSize: "13px !important",
-                        paddingBlock: "6px",
-                        height: "100% !important",
+                        minHeight: "50px",
                     }}
                     input={
                         <OutlinedInput
                             id="select-multiple-chip"
                             label={label}
-                            sx={{
-                                border: "1px solid red !important",
-                                padding: "0 !important",
-                                fontSize: "2px !important",
-                            }}
                         />
                     }
                     renderValue={(selected) => {
@@ -91,7 +87,6 @@ export function MultiSelectInput({ values, label }) {
                             <Box
                                 sx={{
                                     display: "flex",
-                                    width: "fit-content",
                                     flexWrap: "wrap",
                                     gap: 0.5,
                                 }}
@@ -114,7 +109,7 @@ export function MultiSelectInput({ values, label }) {
                                         }
                                         sx={{
                                             borderRadius: 1,
-                                            fontSize: "14px !important",
+                                            // fontSize: "14px !important",
                                         }}
                                     />
                                 ))}
@@ -133,7 +128,7 @@ export function MultiSelectInput({ values, label }) {
                         <MenuItem
                             key={name}
                             value={name}
-                            sx={{ fontSize: "14px !important" }}
+                            // sx={{ fontSize: "14px !important" }}
                         >
                             {name}
                         </MenuItem>

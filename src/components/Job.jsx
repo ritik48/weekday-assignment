@@ -37,7 +37,7 @@ export const Job = forwardRef(
 
         const theme = useTheme();
         const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-        console.log(isSmallScreen, " small");
+
         return (
             <Grid item md={4} ref={ref}>
                 <Card

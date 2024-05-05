@@ -25,10 +25,9 @@ export function FilterNav() {
                     display: "flex",
                     justifyContent: "center",
                     flexWrap: "wrap",
-                    gap: isSmallScreen ? "6px" : "",
+                    gap: isSmallScreen ? "6px" : "10px",
                 }}
                 direction={isSmallScreen ? "column" : "row"}
-                spacing={"10px"}
                 textAlign={"center"}
             >
                 <MultiSelectInput values={Roles} label={"Roles"} />

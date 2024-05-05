@@ -34,15 +34,12 @@ export function SingleInputSelect({ label, values }) {
         <div
             style={{
                 marginBlock: "2px",
-                // width: "15%",
-                height: "50px",
                 minWidth: `${isSmallScreen ? "200px" : "170px"}`,
             }}
         >
             <FormControl
                 sx={{
                     width: "100%",
-                    height: "100%",
                 }}
                 focused={open}
             >
@@ -55,10 +52,9 @@ export function SingleInputSelect({ label, values }) {
                     onOpen={() => setOpen(!open)}
                     onClose={() => setOpen(!open)}
                     onChange={handleChange}
+                    size="small"
                     sx={{
-                        fontSize: "13px !important",
-                        paddingBlock: "6px",
-                        height: "100% !important",
+                        minHeight: "50px",
                     }}
                 >
                     <MenuItem value="">
@@ -68,7 +64,7 @@ export function SingleInputSelect({ label, values }) {
                         <MenuItem
                             key={v}
                             value={v}
-                            sx={{ fontSize: "14px !important" }}
+                            // sx={{ fontSize: "14px !important" }}
                         >
                             {v}
                         </MenuItem>
