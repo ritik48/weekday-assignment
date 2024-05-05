@@ -20,8 +20,12 @@ export function SingleInputSelect({ label, values }) {
         setValue(event.target.value);
     };
     return (
-        <div style={{ marginBlock: "2px" }}>
-            <FormControl sx={{ minWidth: 120 }}>
+        <div style={{ marginBlock: "2px", width: "15%", minWidth: "100px" }}>
+            <FormControl
+                sx={{
+                    width: "100%",
+                }}
+            >
                 <InputLabel id="demo-simple-select-label">{label}</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
@@ -29,12 +33,17 @@ export function SingleInputSelect({ label, values }) {
                     value={value}
                     label={label}
                     onChange={handleChange}
+                    sx={{ fontSize: "8px !important", paddingBottom: "6px" }}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
                     {values.map((v) => (
-                        <MenuItem key={v} value={v}>
+                        <MenuItem
+                            key={v}
+                            value={v}
+                            sx={{ fontSize: "14px !important" }}
+                        >
                             {v}
                         </MenuItem>
                     ))}
