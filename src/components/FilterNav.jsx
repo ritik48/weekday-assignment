@@ -11,18 +11,24 @@ import { SingleInputSelect } from "./SingleInputSelect.jsx";
 import { TextInput } from "./TextInput.jsx";
 import { useTheme } from "@emotion/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getFilteredJobs } from "../redux/jobSlice.js";
 
 export function FilterNav() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+    
+    const filteredJob = useSelector(getFilteredJobs);
     const [showFilter, setShowFilter] = useState(true);
 
     return (
         <Stack spacing={"20px"}>
-            <Typography textAlign={"center"} variant="h5">
-                Search Jobs
-            </Typography>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Typography textAlign={"center"} variant="h5">
+                    Search Jobs
+                </Typography>
+                <sup className="results">{filteredJob.length}</sup>
+            </div>
             {showFilter && (
                 <Stack
                     sx={{

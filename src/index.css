@@ -1,0 +1,12 @@
+.results {
+    background-color: rgb(32, 104, 193);
+    color: white;
+    height: fit-content;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 40px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
