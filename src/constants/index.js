@@ -43,7 +43,29 @@ const Roles = [
     "Finance",
 ];
 
-const Location = ["Remote", "Hybrid", "In-office"];
+// const Location = ["Remote", "Hybrid", "In-office"];
+const Location = [
+    "Mumbai",
+    "Hyderabad",
+    "Delhi",
+    "Bangalore",
+    "Chennai",
+    "Kolkata",
+    "Pune",
+    "Ahmedabad",
+    "Jaipur",
+    "Surat",
+    "Lucknow",
+    "Nagpur",
+    "Visakhapatnam",
+    "Indore",
+    "Thane",
+    "Bhopal",
+    "Vadodara",
+    "Gurgaon",
+    "Noida",
+    "Coimbatore",
+];
 
 const Tech = [
     "Python",
@@ -65,6 +87,7 @@ const Tech = [
 const MinPay = ["0L", "10L", "20L", "30L", "40L", "50L", "60L", "70L"];
 const Experience = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+// keys are the label's visible on each filters and values are the redux filters
 const getFilterCategory = {
     Roles: "roles",
     Location: "location",
@@ -73,13 +96,7 @@ const getFilterCategory = {
     Company: "companyName",
     Experience: "experience",
     "No. of Employees": "numberOfEmployees",
+    "Remote/On-site": "remote",
 };
 
-export {
-    Roles,
-    MinPay,
-    Tech,
-    Location,
-    getFilterCategory,
-    Experience,
-};
+export { Roles, MinPay, Tech, Location, getFilterCategory, Experience };

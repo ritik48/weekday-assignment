@@ -48,7 +48,8 @@ const jobSlice = createSlice({
                     ...value,
                 ];
             } else {
-                state.filters[category] = value;
+                state.filters[category] = value.length > 0 ? value : null;
+                console.log(category + " = " + state.filters[category]);
             }
         },
         removeFilter(state, action) {
@@ -87,20 +88,27 @@ export const getFilteredJobs = createSelector(
         return jobs.filter((job) => {
             const roleFilter =
                 !filters.roles.length ||
-                filters.roles.some((f) => f.toLowerCase() === job.jobRole);
+                filters.roles.some(
+                    (f) => f.toLowerCase() === job.jobRole.toLowerCase()
+                );
 
             const locationFilter =
                 !filters.location.length ||
-                filters.location.some((f) => f.toLowerCase() === job.location);
+                filters.location.some(
+                    (f) => f.toLowerCase() === job.location.toLowerCase()
+                );
 
             const remoteFilter =
                 !filters.remote ||
-                filters.remote.toLowerCase() === job.location;
+                (job.location &&
+                    (filters.remote.toLowerCase() ===
+                        job.location.toLowerCase() ||
+                        (filters.remote.toLowerCase() === "on-site" &&
+                            job.location.toLowerCase() !== "remote")));
 
             const experienceFilter =
                 !filters.experience ||
-                (job.minExp && filters.experience >= job.minExp);
-
+                (job.minExp && parseInt(filters.experience) >= job.minExp);
 
             const numberedSalary = filters.minimumPay.map((p) =>
                 parseInt(p.slice(0, -1))
@@ -110,13 +118,20 @@ export const getFilteredJobs = createSelector(
                 (job.minJdSalary &&
                     numberedSalary.some((f) => f <= job.minJdSalary));
 
+            const companyFilter =
+                !filters.companyName ||
+                (job.companyName &&
+                    job.companyName
+                        .toLowerCase()
+                        .includes(filters.companyName.toLowerCase()));
 
             return (
                 roleFilter &&
                 locationFilter &&
                 remoteFilter &&
                 experienceFilter &&
-                payFilter
+                payFilter &&
+                companyFilter
             );
         });
     }

@@ -7,19 +7,16 @@ import { getFilterCategory } from "../constants";
 
 export function SingleInputSelect({ label, values }) {
     const category = getFilterCategory[label];
+    console.log(values);
 
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
         if (event.target.value.length < 1) {
-            dispatch(
-                removeFilter({ category, value: parseInt(event.target.value) })
-            );
+            dispatch(removeFilter({ category, value: event.target.value }));
         } else {
-            dispatch(
-                addFilter({ category, value: parseInt(event.target.value) })
-            );
+            dispatch(addFilter({ category, value: event.target.value }));
         }
         setValue(event.target.value);
     };

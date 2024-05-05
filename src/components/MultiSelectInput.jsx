@@ -16,6 +16,7 @@ import { addFilter, removeFilter } from "../redux/jobSlice";
 
 export function MultiSelectInput({ values, label }) {
     const category = getFilterCategory[label];
+    // console.log("rerender = ", label);
 
     const dispatch = useDispatch();
 
