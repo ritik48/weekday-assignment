@@ -50,15 +50,17 @@ export const Job = forwardRef(
                                 </Typography>
                             </Stack>
                         </Stack>
-                        <Stack direction={"row"} spacing={"5px"}>
-                            <Typography fontSize={"14px"}>
-                                Estimated Salary:
-                            </Typography>
-                            <Typography fontSize={"14px"}>
-                                {currency}
-                                {minSalary} - {maxSalary} LPA ✅
-                            </Typography>
-                        </Stack>
+                        {currency && minSalary && maxSalary && (
+                            <Stack direction={"row"} spacing={"5px"}>
+                                <Typography fontSize={"14px"}>
+                                    Estimated Salary:
+                                </Typography>
+                                <Typography fontSize={"14px"}>
+                                    {currency + " "}
+                                    {minSalary} - {maxSalary} LPA ✅
+                                </Typography>
+                            </Stack>
+                        )}
 
                         <Stack>
                             <Typography
@@ -73,23 +75,26 @@ export const Job = forwardRef(
                                 {details.toString().slice(0, 240)}
                             </Typography>
                         </Stack>
-                        <Stack spacing={"4px"}>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                                fontWeight={"bold"}
-                            >
-                                Experience Required :
-                            </Typography>
-                            <Typography
-                                variant="p"
-                                color={"grey"}
-                                fontFamily={"sans-serif"}
-                            >
-                                {minExperience} - {maxExperience} years
-                            </Typography>
-                        </Stack>
+                        {minExperience && (
+                            <Stack spacing={"4px"}>
+                                <Typography
+                                    variant="p"
+                                    color={"grey"}
+                                    fontFamily={"sans-serif"}
+                                    fontWeight={"bold"}
+                                >
+                                    Experience Required :
+                                </Typography>
+                                <Typography
+                                    variant="p"
+                                    color={"grey"}
+                                    fontFamily={"sans-serif"}
+                                >
+                                    {minExperience} {maxExperience ? "-" : ""}{" "}
+                                    {maxExperience} years
+                                </Typography>
+                            </Stack>
+                        )}
                         <Button variant="contained" size="medium">
                             Easy Apply
                         </Button>
