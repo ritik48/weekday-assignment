@@ -1,8 +1,17 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { Avatar, Button, Card, Grid, Stack, Typography } from "@mui/material";
-import { forwardRef } from "react";
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Grid,
+    Modal,
+    Stack,
+    Typography,
+} from "@mui/material";
+import { forwardRef, useState } from "react";
 
 export const Job = forwardRef(
     (
@@ -21,6 +30,8 @@ export const Job = forwardRef(
         },
         ref
     ) => {
+        const limit = 240;
+        const [showMore, setShowMore] = useState(false);
         return (
             <Grid item md={4} ref={ref}>
                 <Card>
@@ -72,7 +83,18 @@ export const Job = forwardRef(
                                 Job detail
                             </Typography>
                             <Typography>
-                                {details.toString().slice(0, 240)}
+                                {showMore
+                                    ? details.toString()
+                                    : details.toString().slice(0, limit)+"..."}
+                                {details.toString().length !== limit && (
+                                    <Button
+                                        onClick={() => setShowMore(!showMore)}
+                                        variant="outlined"
+                                        size="small"
+                                    >
+                                        {!showMore ? "Show more" : "Hide"}
+                                    </Button>
+                                )}
                             </Typography>
                         </Stack>
                         {minExperience && (
