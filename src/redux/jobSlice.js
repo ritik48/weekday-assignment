@@ -48,10 +48,7 @@ const jobSlice = createSlice({
 
             // assign filters based on whether the filter type is array or not
             if (Array.isArray(state.filters[category])) {
-                state.filters[category] = [
-                    ...state.filters[category],
-                    ...value,
-                ];
+                state.filters[category] = value;
             } else {
                 if (typeof value === "string") {
                     state.filters[category] = value.length > 0 ? value : null;

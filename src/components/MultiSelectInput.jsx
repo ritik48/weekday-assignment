@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getFilterCategory } from "../constants";
 import { addFilter, removeFilter } from "../redux/jobSlice";
 import { useTheme } from "@emotion/react";
@@ -19,9 +19,13 @@ import { useTheme } from "@emotion/react";
 export function MultiSelectInput({ values, label }) {
     const category = getFilterCategory[label];
 
+    // when filter is selected but user hides the filter bar, then state will get lost, 
+    // so we have to re-initialize the filters from redux state whenever the component mounts 
+    const filters = useSelector((state) => state.job.filters);
+
     const dispatch = useDispatch();
 
-    const [selectValues, setSelectValues] = useState([]);
+    const [selectValues, setSelectValues] = useState(filters[category]);
     const [open, setOpen] = useState(false);
 
     const handleChange = (event) => {
@@ -31,6 +35,7 @@ export function MultiSelectInput({ values, label }) {
 
         dispatch(addFilter({ category, value }));
 
+        // to remove the filter when the user clicks on the already selected filter
         const removedValue = selectValues.find((f) => !value.includes(f));
         if (removedValue) {
             dispatch(removeFilter({ category, value: removedValue }));
