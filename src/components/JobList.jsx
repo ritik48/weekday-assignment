@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Job } from "./Job.jsx";
 import { fetchJobs, getFilteredJobs, nextPage } from "../redux/jobSlice.js";
 import { useCallback, useEffect, useRef } from "react";
+import Loader from "./Loader.jsx";
 
 export function JobList() {
     const page = useSelector((state) => state.job.page);
@@ -77,11 +78,7 @@ export function JobList() {
                         )
                     )}
             </Grid>
-            {loading && (
-                <Typography variant="h4" textAlign={"center"}>
-                    Loading...
-                </Typography>
-            )}
+            {loading && <Loader />}
             {!loading && filteredJob.length === 0 && (
                 <Typography variant="h6" textAlign={"center"}>
                     No jobs found

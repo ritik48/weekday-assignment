@@ -15,6 +15,9 @@ export async function getJobs(page, limit) {
             headers: myHeaders,
             body,
         };
+
+        // delay so that api request is not fired if user rapidly scroll , to give smooth experience
+        await new Promise(resolve => setTimeout(resolve, 200));
         const res = await fetch(
             "https://api.weekday.technology/adhoc/getSampleJdJSON",
             requestOptions
