@@ -13,7 +13,7 @@ export function JobList() {
     const { loading, hasMoreJobs } = useSelector((state) => state.job);
     const filteredJob = useSelector(getFilteredJobs);
 
-    // infinite scroll logic
+    // infinite scroll logic -> trigger fetch when last node is completely visible
     const observer = useRef();
     const lastJobRef = useCallback(
         (job) => {
@@ -21,11 +21,14 @@ export function JobList() {
 
             if (observer.current) observer.current.disconnect();
 
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && hasMoreJobs) {
-                    dispatch(nextPage());
-                }
-            });
+            observer.current = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting && hasMoreJobs) {
+                        dispatch(nextPage());
+                    }
+                },
+                { root: null, rootMargin: "0px", threshold: 1 }
+            );
 
             if (job) {
                 observer.current.observe(job);
